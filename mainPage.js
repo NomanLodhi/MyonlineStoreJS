@@ -1,4 +1,5 @@
 let row=document.querySelector('.row');
+let loader=document.querySelector('#loader');
 
 
 
@@ -7,8 +8,13 @@ let getProducts=(getData)=>{
 apiFetch.addEventListener('readystatechange',()=>{
     console.log(apiFetch.readyState)
     console.log(apiFetch.status)
+
     if(apiFetch.readyState==4 && apiFetch.status==200){
      getData(JSON.parse(apiFetch.response))
+     loader.style.display='none'
+    }
+    else if(apiFetch.readyState <=3){
+        loader.style.display='flex'
     }
     else if(apiFetch.readyState==4){
         row.innerHTML=`Error Of ${apiFetch.status}`
